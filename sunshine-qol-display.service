@@ -1,0 +1,16 @@
+[Unit]
+Description=On-demand virtual display for Sunshine on KDE Wayland
+After=graphical-session.target
+
+[Service]
+Type=notify
+NotifyAccess=main
+KillMode=mixed
+ExecStart=/usr/bin/python3 %h/sunshine-qol/vdisplay.py daemon
+ExecStopPost=/usr/bin/python3 %h/sunshine-qol/vdisplay.py recover
+Environment=QT_QPA_PLATFORM=wayland
+Environment=WAYLAND_DISPLAY=wayland-0
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=%t/bus
+TimeoutStartSec=35
+TimeoutStopSec=30
+Restart=no

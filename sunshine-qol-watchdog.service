@@ -1,0 +1,8 @@
+[Unit]
+Description=Check Sunshine responsiveness and recover a hung host
+After=sunshine-qol-host.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 %h/sunshine-qol/watchdog.py
+TimeoutStartSec=30

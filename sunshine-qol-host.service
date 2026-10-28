@@ -1,0 +1,22 @@
+[Unit]
+Description=Sunshine official standalone build with automatic KDE virtual display
+After=graphical-session-pre.target plasma-kwin_wayland.service
+PartOf=graphical-session.target
+Wants=sunshine-qol-watchdog.timer
+StartLimitIntervalSec=0
+Conflicts=app-dev.lizardbyte.app.Sunshine.service
+After=app-dev.lizardbyte.app.Sunshine.service
+
+[Service]
+ExecStartPre=/bin/sleep 5
+ExecStart=%h/sunshine-qol/native/squashfs-root/usr/bin/sunshine %h/sunshine-qol/sunshine.conf
+ExecStopPost=/usr/bin/python3 %h/sunshine-qol/vdisplay.py stop
+Environment=QT_QPA_PLATFORM=wayland
+Environment=WAYLAND_DISPLAY=wayland-0
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=%t/bus
+Restart=always
+RestartSec=10
+TimeoutStopSec=30
+
+[Install]
+WantedBy=graphical-session.target

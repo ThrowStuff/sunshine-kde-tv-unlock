@@ -1,0 +1,9 @@
+[Unit]
+Description=Periodic Sunshine health checks
+PartOf=sunshine-qol-host.service
+
+[Timer]
+OnActiveSec=90
+OnUnitInactiveSec=15
+AccuracySec=1
+Unit=sunshine-qol-watchdog.service

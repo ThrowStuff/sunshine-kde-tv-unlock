@@ -1,0 +1,12 @@
+[Unit]
+Description=Plasma Keyboard mouse input only while the screen is locked
+After=plasma-kwin_wayland.service
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/python3 %h/sunshine-qol/lock_keyboard.py
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=graphical-session.target
